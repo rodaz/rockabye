@@ -1,3 +1,19 @@
 <h1>
   {{title}}
 </h1>
+<p-dataTable [value]="cars" rowGroupMode="subheader" groupField="brand"
+   [sortableRowGroup]="false">
+  <p-header>Header</p-header>
+  <template pTemplate="rowgroupheader" let-rowData>{{rowData['brand']}}</template>
+  <p-column field="year" header="Year"></p-column>
+  <p-column field="color" header="Color"></p-column>
+  <p-column field="price" header="Price">
+    <template let-col let-car="rowData" pTemplate="body">
+      <span>{{car[col.field]}}</span>
+    </template>
+  </p-column>
+  <template pTemplate="rowgroupfooter" let-car>
+    <td colspan="2" style="text-align:right">Total Price</td>
+    <td>{{calculateGroupTotal(car['brand'])}}</td>
+  </template>
+</p-dataTable>
